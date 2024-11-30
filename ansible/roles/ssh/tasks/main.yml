@@ -1,0 +1,22 @@
+- name: Disable root login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+
+- name: Disable empty passwords
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitEmptyPasswords'
+    line: 'PermitEmptyPasswords no'
+
+- name: Set verbose logging
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^LogLevel'
+    line: 'LogLevel VERBOSE'
+
+- name: Restart SSH
+  ansible.builtin.service:
+    name: ssh
+    state: restarted

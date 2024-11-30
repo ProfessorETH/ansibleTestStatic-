@@ -1,0 +1,8 @@
+- name: Install utilities
+  ansible.builtin.package:
+    name:
+      - htop
+      - ncdu
+      - git
+      - nano
+    state: present

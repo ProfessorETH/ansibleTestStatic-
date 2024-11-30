@@ -1,0 +1,9 @@
+- name: Manage user accounts
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    shell: "{{ item.shell }}"
+    groups: "{{ item.groups }}"
+    password: "{{ item.password }}"
+  with_items: "{{ users }}"
+  when: users is defined

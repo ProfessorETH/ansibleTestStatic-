@@ -1,0 +1,7 @@
+all:
+  hosts:
+    ansible_test:
+      ansible_host: 94.141.103.201
+      ansible_port: 2223
+      ansible_user: ansibleuser
+      ansible_ssh_pass: password

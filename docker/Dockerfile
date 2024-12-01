@@ -1,16 +1,21 @@
 FROM ubuntu:24.04
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     openssh-server \
-    python3 \
-    python3-pip \
-    sudo && \
-    mkdir /var/run/sshd && \
-    echo 'root:password' | chpasswd && \
-    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
-    service ssh start
+    sudo \
+    htop \
+    ncdu \
+    git \
+    nano && \
+    apt-get clean
 
-RUN pip3 install ansible
+RUN mkdir /var/run/sshd
+
+RUN useradd -m ansibleuser && echo "ansibleuser:password" | chpasswd && adduser ansibleuser sudo
+
+EXPOSE 22
+
+WORKDIR /workspace
 
 CMD ["/usr/sbin/sshd", "-D"]

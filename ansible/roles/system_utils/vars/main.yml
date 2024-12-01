@@ -1,0 +1,6 @@
+---
+system_utils_packages:
+  - htop
+  - ncdu
+  - git
+  - nano

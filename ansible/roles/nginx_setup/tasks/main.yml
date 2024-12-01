@@ -1,0 +1,26 @@
+---
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Configure gzip in nginx
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^\\s*gzip\\s*on;', line: 'gzip on;' }
+    - { regexp: '^\\s*gzip_types', line: "gzip_types {{ nginx_gzip_types }};" }
+
+- name: Configure caching in nginx
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: '^\\s*expires'
+    line: "expires {{ nginx_cache_time }};"
+
+- name: Restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted

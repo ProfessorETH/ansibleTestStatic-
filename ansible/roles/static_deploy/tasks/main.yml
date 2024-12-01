@@ -1,0 +1,23 @@
+---
+- name: Create images directory
+  ansible.builtin.file:
+    path: "{{ static_image_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Download static images
+  ansible.builtin.get_url:
+    url: "{{ static_image_url }}"
+    dest: /tmp/images.zip
+
+- name: Extract images to target directory
+  ansible.builtin.unarchive:
+    src: /tmp/images.zip
+    dest: "{{ static_image_dir }}"
+    remote_src: yes
+
+- name: Set permissions on images directory
+  ansible.builtin.file:
+    path: "{{ static_image_dir }}"
+    state: directory
+    mode: '0755'

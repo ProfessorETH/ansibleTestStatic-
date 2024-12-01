@@ -1,9 +1,18 @@
-version: '3.8'
-
+version: "3.8"
 services:
-  test-vm:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  ansible_test:
+    build: .
+    image: ansible_test_image
     ports:
-      - "2222:22"
+      - "2223:22"
+    networks:
+      - default
+    volumes:
+      - .:/workspace
+    stdin_open: true
+    tty: true
+    restart: always
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,7 @@
+---
+users:
+  - name: "testuser"
+    shell: "/bin/bash"
+    state: "present"
+    password: "{{ 'password' | password_hash('sha512') }}"
+    groups: "sudo"

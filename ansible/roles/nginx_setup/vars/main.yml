@@ -1,0 +1,3 @@
+---
+nginx_cache_time: "1h"
+nginx_gzip_types: "text/plain application/javascript text/css application/json image/svg+xml"

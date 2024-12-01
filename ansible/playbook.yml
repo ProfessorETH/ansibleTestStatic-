@@ -1,11 +1,9 @@
-- name: Configure static server
-  hosts: all
-  become: true
-
+- hosts: all
+  become: yes
   roles:
-    - users
-    - ssh
-    - zsh
-    - utilities
-    - nginx
-    - static
+    - user_management
+    - zsh_setup
+    - ssh_config
+    - system_utils
+    - nginx_setup
+    - static_deploy
